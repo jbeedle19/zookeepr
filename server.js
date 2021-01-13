@@ -83,6 +83,7 @@ function validateAnimal(animal) {
     return true;
 }
 
+// Route for showing all animals json
 app.get('/api/animals', (req, res) => {
     let results = animals;
     if (req.query) {
@@ -91,6 +92,7 @@ app.get('/api/animals', (req, res) => {
     res.json(results);
 });
 
+// Route for finding animals json by id 
 app.get('/api/animals/:id', (req, res) => {
     const result = findById(req.params.id, animals);
     if (result) {
@@ -100,6 +102,7 @@ app.get('/api/animals/:id', (req, res) => {
     }
 });
 
+// Route for posting a new animal
 app.post('/api/animals', (req, res) => {
     // req.body is where our incoming content will be
     // Set id based on what the next index of the array will be
@@ -115,6 +118,17 @@ app.post('/api/animals', (req, res) => {
     }
 });
 
+// Route for zookeepers.html
+app.get('/zookeepers', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/zookeepers.html'));
+});
+
+// Route for animals.html
+app.get('/animals', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/animals.html'));
+});
+
+// Route for index.html
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
 });
