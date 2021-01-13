@@ -8,6 +8,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 // Parse incoming JSON data
 app.use(express.json());
+// Instructs the server to make certain files readily available
+app.use(express.static('public'));
 
 const { animals } = require('./data/animals');
 
