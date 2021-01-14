@@ -4,7 +4,7 @@ const {
     findById,
     createNewZookeeper,
     validateZookeeper,
-} = require('../lib/zookeepers');
+} = require('../lib/zookeepers.js');
 const { zookeepers } = require('../data/zookeepers.json');
 
 jest.mock('fs');
