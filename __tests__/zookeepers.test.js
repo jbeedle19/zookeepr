@@ -2,87 +2,81 @@ const fs = require('fs');
 const {
     filterByQuery,
     findById,
-    createNewAnimal,
-    validateAnimal,
-} = require('../lib/animals.js');
-const { animals } = require('../data/animals');
+    createNewZookeeper,
+    validateZookeeper,
+} = require('../lib/zookeepers');
+const { zookeepers } = require('../data/zookeepers.json');
 
 jest.mock('fs');
 
-test('creates an animal object', () => {
-    const animal = createNewAnimal(
-        { name: 'Darlene', id: 'jhgdja3ng2'},
-        animals
+test('creates a zookeeper object', () => {
+    const zookeeper = createNewZookeeper(
+        { name: 'Josh', id: '19'},
+        zookeepers
     );
 
-    expect(animal.name).toBe('Darlene');
-    expect(animal.id).toBe('jhgdja3ng2');
+    expect(zookeeper.name).toBe('Josh');
+    expect(zookeeper.id).toBe('19');
 });
 
 test('filters by query', () => {
-    const startingAnimals = [
+    const startingZookeepers = [
         {
-            id: '3',
-            name: 'Erica',
-            species: 'gorilla',
-            diet: 'omnivore',
-            personalityTraits: ['quirky', 'rash'],
+            id: '19',
+            name: 'Josh',
+            age: 27,
+            favoriteAnimal: 'monkey',
         },
         {
-            id: "4",
-            name: "Noel",
-            species: "bear",
-            diet: "carnivore",
-            personalityTraits: ["impish", "sassy", "brave"],
+            id: "20",
+            name: "Jane",
+            age: 45,
+            favoriteAnimal: "dolphin",
         },
     ];
     
-    const updatedAnimals = filterByQuery({ species: 'gorilla' }, startingAnimals);
+    const updatedZookeepers = filterByQuery({ favoriteAnimal: 'monkey' }, startingZookeepers);
 
-    expect(updatedAnimals.length).toEqual(1);
+    expect(updatedZookeepers.length).toEqual(1);
 });
 
 test('finds by id', () => {
-    const startingAnimals = [
+    const startingZookeepers = [
         {
-            id: '3',
-            name: 'Erica',
-            species: 'gorilla',
-            diet: 'omnivore',
-            personalityTraits: ['quirky', 'rash'],
+            id: '19',
+            name: 'Josh',
+            age: 27,
+            favoriteAnimal: 'monkey',
         },
         {
-            id: "4",
-            name: "Noel",
-            species: "bear",
-            diet: "carnivore",
-            personalityTraits: ["impish", "sassy", "brave"],
+            id: "20",
+            name: "Jane",
+            age: 45,
+            favoriteAnimal: "dolphin",
         },
     ];
 
-    const result = findById('3', startingAnimals);
+    const result = findById('19', startingZookeepers);
 
-    expect(result.name).toBe('Erica');
+    expect(result.name).toBe('Josh');
 });
 
-test('validates personality traits', () => {
-    const animal = {
-        id: '3',
-        name: 'Erica',
-        species: 'gorilla',
-        diet: 'omnivore',
-        personalityTraits: ['quirky', 'rash'],
+test('validates favorite animal', () => {
+    const zookeeper = {
+        id: '19',
+        name: 'Josh',
+        age: 27,
+        favoriteAnimal: 'monkey',
     };
 
-    const invalidAnimal = {
-        id: '3',
-        name: 'Erica',
-        species: 'gorilla',
-        diet: 'omnivore',
+    const invalidZookeeper = {
+        id: '19',
+        name: 'Josh',
+        age: 27,
     };
 
-    const result = validateAnimal(animal);
-    const result2 = validateAnimal(invalidAnimal);
+    const result = validateZookeeper(zookeeper);
+    const result2 = validateZookeeper(invalidZookeeper);
 
     expect(result).toBe(true);
     expect(result2).toBe(false);
